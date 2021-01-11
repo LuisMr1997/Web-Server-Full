@@ -1,0 +1,58 @@
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+<div class="levelDown">
+    <a type="button" routerLink="/reclamos">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../../../assets/back-img.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+
+
+<section>
+    <div class="table-wrapper">
+        <h1>RECLAMOS</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.cantidad}}</th>
+                    <th>{{item.precio_llegada}}</th>
+                    <th>{{item.precio_pedido}}</th>
+                    <th>{{item.idReclamo}}</th>
+                    <th>{{item.idPedido}}</th>
+                    <th>{{item.idMaterial}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaDetalleReclamo">
+                        <td>{{item.cantidad}}</td>
+                        <td>{{item.precio_llegada}}</td>
+                        <td>{{item.precio_pedido}}</td>
+                        <td>{{item.idreclamo}}</td>
+                        <td>{{item.idpedido}}</td>
+                        <td>{{item.idmaterial}}</td>
+                        <td>
+                            <a type="button" (click)="deleteDataTable(item.id)" routerLink="/reclamos">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

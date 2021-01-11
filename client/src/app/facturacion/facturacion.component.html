@@ -1,0 +1,141 @@
+<div class="newFacturacion">
+    <a type="button" onclick="document.getElementById('id04').style.display='block'">
+        <img src="../../assets/nuevo.png" alt="new-img" height="64" width="64">
+    </a>
+</div>
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <img src="../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+
+<!-- TABLA FACTURACIÓN -->
+<section>
+    <div class="table-wrapper">
+        <h1>FACTURACIÓN</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.id}}</th>
+                    <th>{{item.idcliente}}</th>
+                    <th>{{item.fecha}}</th>
+                    <th>{{item.total}}</th>
+                    <th>{{item.idCliente}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaFacturas">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.idcliente }}</td>
+                        <td>{{ item.fecha }}</td>
+                        <td>{{ item.total }}</td>
+                        <td>
+                            <a type="button" onclick="document.getElementById('id05').style.display='block'" (click)="getDatabyID(item.id)">
+                                <img src="../../assets/editar.png" alt="edit-img" height="27" width="27">
+                            </a>
+                            <a type="button" href="/resumen_facturacion" (click)="getDatabyID(item.id)">
+                                <img src="../../assets/details.ico" alt="details-img" height="27" width="27">
+                            </a>
+                            <a type="button" (click)="deleteDataTable(item.id)">
+                                <img src="../../assets/delete-img.png" alt="delete-img" height="27" width="27">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<div class="made-with-love">
+    FACTURACIÓN
+    <i>♥</i>
+    <a target="_blank" href="#">By: Richard</a>
+</div>
+<!-- TABLA FACTURACIÓN -->
+
+<!-- MODAL FACTURACIÓN -->
+<div>
+    <div id="id04" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id04').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Nuevo Factura</h1>
+                <form [formGroup]="facturaForm" autocomplete="off">
+                    <strong>Cliente</strong><br>
+                    <select formControlName="idcliente">
+                        <option *ngFor="let item of respuestaClientes" value={{item.id}}>{{item.apellido}} {{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="facturaForm.controls['idcliente'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>TOTAL</strong><br>
+                    <input formControlName="total">
+                    <div>
+                        <span class="errors" *ngIf="facturaForm.controls['total'].errors?.required"> Obligatorio </span>
+                    </div><br><br>
+
+                    <a type="button" (click)="postDataFactura()">Guardar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL FACTURACIÓN -->
+
+<!-- MODAL DETALLE_FACTURA -->
+<div>
+    <div id="id05" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id05').style.display='none'" class="w3-display-topright">
+                    <img src="../../assets/close-img.png" alt="edit-img" height="18" width="18">
+                </span>
+            </header>
+
+            <div>
+                <h1>Detalle de la Factura</h1>
+                <form [formGroup]="detallefacturaForm" autocomplete="off">
+                    <strong>MATERIAL</strong><br>
+                    <select formControlName="idmaterial">
+                        <option *ngFor="let item of respuestaMateriales" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="detallefacturaForm.controls['idmaterial'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>DESCUENTO</strong><br>
+                    <input formControlName="descuento">
+                    <div>
+                        <span class="errors" *ngIf="detallefacturaForm.controls['descuento'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>CANTIDAD</strong><br>
+                    <input formControlName="cantidad">
+                    <div>
+                        <span class="errors" *ngIf="detallefacturaForm.controls['cantidad'].errors?.required"> Obligatorio </span>
+                    </div><br>
+
+                    <strong>PRECIO</strong><br>
+                    <input formControlName="precio">
+                    <div>
+                        <span class="errors" *ngIf="detallefacturaForm.controls['precio'].errors?.required"> Obligatorio </span>
+                    </div><br><br>
+
+                    <a type="button" (click)="postDataDetalleFacturas()">
+                        Guardar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pdfButton">
+    <a type="button" class="pdf" (click)="pdf()">
+        <img src="../../assets/PDF.png" alt="PDF.img" height="64" width="64">
+    </a>
+</div>

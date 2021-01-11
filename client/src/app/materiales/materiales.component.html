@@ -1,0 +1,115 @@
+<div class="newMaterial">
+    <a type="button" onclick="document.getElementById('id04').style.display='block'">
+        <img src="../../assets/nuevo.png" alt="new-img" height="64" width="64">
+    </a>
+</div>
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <img src="../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+<div class="reclamosPage">
+    <a type="button" routerLink="/nicho">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/new.png" alt="reclamos-img" height="64" width="64">
+    </a>
+</div>
+
+<!-- TABLA MATERIALES -->
+<section>
+    <div class="table-wrapper">
+        <h1>MATERIALES</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.id}}</th>
+                    <th>{{item.nombre}}</th>
+                    <th>{{item.descripcion}}</th>
+                    <th>{{item.fecha_registro}}</th>
+                    <th>{{item.fecha_actualizacion}}</th>
+                    <th>{{item.precio}}</th>
+                    <th>{{item.idnicho}}</th>
+                    <th>{{item.idproveedor}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaMateriales">
+                        <th>{{item.id}}</th>
+                        <th>{{item.nombre}}</th>
+                        <th>{{item.descripcion}}</th>
+                        <th>{{item.fecha_registro}}</th>
+                        <th>{{item.fecha_actualizacion}}</th>
+                        <th>{{item.precio}}</th>
+                        <th>{{item.idnicho}}</th>
+                        <th>{{item.idproveedor}}</th>
+                        <td>
+                            <a type="button" (click)="deleteDataTable(item.id)">
+                                <img src="../../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- TABLA MATERIALES -->
+
+<!-- MODAL MATERIALES -->
+<div>
+    <div id="id04" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id04').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Nuevo Material</h1>
+                <form [formGroup]="materialesForm" autocomplete="off">
+                    <strong>Nombre Del Material</strong><br>
+                    <input formControlName="nombre">
+                    <div>
+                        <span class="errors" *ngIf="materialesForm.controls['nombre'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="materialesForm.controls['nombre'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <strong>Descripción</strong><br>
+                    <input formControlName="descripcion">
+                    <div>
+                        <span class="errors" *ngIf="materialesForm.controls['descripcion'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="materialesForm.controls['descripcion'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <strong>Precio</strong><br>
+                    <input formControlName="precio">
+                    <div>
+                        <span class="errors" *ngIf="materialesForm.controls['precio'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="materialesForm.controls['precio'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <strong>Ubicación</strong><br>
+                    <select formControlName="idnicho">
+                        <option *ngFor="let item of respuestaNicho" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="materialesForm.controls['idnicho'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>Proveedor</strong><br>
+                    <select formControlName="idproveedor">
+                        <option *ngFor="let item of respuestaProveedor" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="materialesForm.controls['idproveedor'].errors?.required">Obligatorio</span>
+                    </div><br>
+                    <a type="button" (click)="postDataMateriales()">Guardar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL MATERIALES -->

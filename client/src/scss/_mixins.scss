@@ -1,0 +1,65 @@
+@mixin bg-covertint ($r-from, $g-from, $b-from, $r-to, $g-to, $b-to, $alpha, $imgurl, $background-top:"center", $background-left:"center", $background-attachment:"fixed") {
+    background: -webkit-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+    background: -moz-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+    background: -o-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+    background: linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@mixin headers {
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 10px;
+    height: 50%;
+    @include center-horizontal;
+}
+
+@mixin center-horizontal {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// @mixin body {
+// 	margin: 0;
+// 	padding: 0;
+//   	font-family: $font-secondary;
+// }
+@mixin gridImagenes($cantidad, $margin) {
+    width: ((100% - (($cantidad - 1) * $margin))/$cantidad);
+    &:nth-child(n) {
+        margin-right: $margin;
+        margin-bottom: $margin;
+    }
+    &:nth-child(#{$cantidad}n + 1) {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin border-radius($border) {
+    border-radius: $border;
+}
+
+@mixin desktop {
+    @media only screen and (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media only screen and (min-width: #{$tablet}) {
+        @content;
+    }
+}

@@ -1,0 +1,168 @@
+<div class="newReclamo">
+    <a type="button" onclick="document.getElementById('id04').style.display='block'">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/nuevo.png" alt="new-img" height="64" width="64">
+    </a>
+</div>
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+<div class="levelDown">
+    <a type="button" routerLink="/pedidos">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/back-img.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+
+<!-- TABLA RECLAMOS -->
+<section>
+    <div class="table-wrapper">
+        <h1>RECLAMOS</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.id}}</th>
+                    <th>{{item.fecha}}</th>
+                    <th>{{item.comentario}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaReclamos">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.fecha }}</td>
+                        <td>{{ item.comentario }}</td>
+                        <td>
+                            <a type="button" onclick="document.getElementById('id05').style.display='block'" (click)="getDatabyID(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/editar.png" alt="edit-img" height="18" width="18">
+                            </a>
+                            <a type="button" href="/resumen_reclamos" (click)="getDatabyID(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/details.ico" alt="details-img" height="18" width="18">
+                            </a>
+                            <a type="button" (click)="deleteDataTable(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- TABLA RECLAMOS -->
+
+<!-- MODAL RECLAMOS -->
+<div>
+    <div id="id04" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id04').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Nuevo Reclamo</h1>
+                <form [formGroup]="reclamosForm" autocomplete="off">
+                    <strong>Comentario del Reclamo</strong><br>
+                    <textarea formControlName="comentario" placeholder="Reclamos y Sugerencias"></textarea>
+                    <div>
+                        <span class="errors" *ngIf="reclamosForm.controls['comentario'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="reclamosForm.controls['comentario'].errors?.pattern"> Inválido </span>
+                    </div><br><br>
+                    <a type="button" (click)="postDataReclamos()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span> Guardar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL RECLAMOS -->
+
+<!-- MODAL DETALLE RECLAMO -->
+<div>
+    <div id="id05" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id05').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Detalle del Reclamo</h1>
+                <form [formGroup]="detallereclamosForm" autocomplete="off">
+                    <strong>Material</strong><br>
+                    <select formControlName="idmaterial">
+                        <option *ngFor="let item of respuestaMateriales" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['idmaterial'].errors?.required"> Obligatorio </span>
+                    </div><br>
+
+                    <strong>Pedido</strong><br>
+                    <select formControlName="idpedido">
+                        <option *ngFor="let item of respuestaPedidos" value={{item.id}}>{{item.idproveedor}} - {{item.fecha}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['idpedido'].errors?.required"> Obligatorio </span>
+                    </div><br>
+
+                    <strong>Cantidad</strong><br>
+                    <input formControlName="cantidad">
+                    <div>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['cantidad'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['cantidad'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <strong>Precio pedido</strong><br>
+                    <input formControlName="precio_pedido">
+                    <div>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['precio_pedido'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['precio_pedido'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <strong>Precio llegada</strong><br>
+                    <input formControlName="precio_llegada">
+                    <div>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['precio_llegada'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="detallereclamosForm.controls['precio_llegada'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <a type="button" (click)="postDataDetallePedidos()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span> Guardar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DETALLE RECLAMO -->

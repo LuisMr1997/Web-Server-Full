@@ -1,0 +1,36 @@
+<section>
+    <div class="table-wrapper">
+        <h1>RESUMEN</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.idfactura}}</th>
+                    <th>{{item.idmaterial}}</th>
+                    <th>{{item.cantidad}}</th>
+                    <th>{{item.precio}}</th>
+                    <th>{{item.descuento}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaDetalleFactura">
+                        <td>{{item.idfactura}}</td>
+                        <td>{{item.idmaterial}}</td>
+                        <td>{{item.cantidad}}</td>
+                        <td>{{item.precio}}</td>
+                        <td>{{item.descuento}}</td>
+                        <td>
+                            <a type="button" (click)="deleteDataTable(item.id)" routerLink="/pedidos">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

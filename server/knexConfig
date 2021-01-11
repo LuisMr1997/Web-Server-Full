@@ -1,0 +1,30 @@
+  
+-----	CONFIGURACION KNEX	-----
+
+- npm init			(colocar nombre igual al de la carpeta)
+- npm i knex -g
+- npm i -g nodemon
+- npm i knex --save
+- npm i pg --save
+- npm i express --save
+- npm i --save-dev nodemon
+- knex init
+- mkdir knex
+- mkdir knex/migrations
+- mkdir knex/seeds
+--	Crear archivo "knex.js" dentro de la carpeta knex
+- knex migrate:rollback
+- knex migrate:latest		(migrar tablas)
+- knex seed:run			(insertar datos con semillas)
+
+
+--	Crear archivo de tablas
+
+- knex migrate:make create_database_tables
+
+
+--	Crear y enviar archivos (semillas)
+
+- knex seed:make "nombre_de_semilla"
+- knex seed:run
+

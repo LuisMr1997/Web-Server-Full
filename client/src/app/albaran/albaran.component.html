@@ -1,0 +1,147 @@
+<div class="newAlbaran">
+    <a type="button" onclick="document.getElementById('id04').style.display='block'">
+        <img src="../../assets/nuevo.png" alt="new-img" height="64" width="64">
+    </a>
+</div>
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <img src="../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+
+<!-- TABLA ALBARAN -->
+<section>
+    <div class="table-wrapper">
+        <h1>ALBARÁN</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.id}}</th>
+                    <th>{{item.idpedido}}</th>
+                    <th>{{item.fecha_entrega}}</th>
+                    <th>{{item.total}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaAlbaran">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.idpedido }}</td>
+                        <td>{{ item.fecha_entrega }}</td>
+                        <td>{{ item.total }}</td>
+                        <td>
+                            <a type="button" onclick="document.getElementById('id05').style.display='block'" (click)="getDatabyID(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../assets/editar.png" alt="edit-img" height="18" width="18">
+                            </a>
+                            <a type="button" href="/resumen_albaran" (click)="getDatabyID(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../assets/details.ico" alt="details-img" height="18" width="18">
+                            </a>
+                            <a type="button" (click)="deleteDataTable(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- TABLA ALBARAN -->
+
+<!-- MODAL ALBARAN -->
+<div>
+    <div id="id04" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id04').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Nuevo Albarán</h1>
+                <form [formGroup]="albaranForm" autocomplete="off">
+                    <strong>PEDIDO</strong><br>
+                    <select formControlName="idpedido">
+                            <option *ngFor="let item of respuestaPedidos" value={{item.id}}>{{item.idproveedor}} - {{item.fecha}}</option>
+                        </select>
+                    <div>
+                        <span class="errors" *ngIf="albaranForm.controls['idpedido'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>TOTAL</strong><br>
+                    <input formControlName="total">
+                    <div>
+                        <span class="errors" *ngIf="albaranForm.controls['total'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="albaranForm.controls['total'].errors?.pattern"> Inválido </span>
+                    </div><br>
+
+                    <a type="button" (click)="postDataAlbaran()">Guardar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL ALBARAN -->
+
+<!-- MODAL DETALLE_ALBARAN -->
+<div>
+    <div id="id05" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id05').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Detalle del Albarán</h1>
+                <form [formGroup]="detallealbaranForm" autocomplete="off">
+                    <strong>ALBARÁN</strong><br>
+                    <select formControlName="idalbaran">
+                            <option *ngFor="let item of respuestaAlbaran" value={{item.id}}>{{item.id}}--{{item.fecha_entrega}}</option>
+                        </select>
+                    <div>
+                        <span class="errors" *ngIf="detallealbaranForm.controls['idalbaran'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>MATERIAL</strong><br>
+                    <select formControlName="idmaterial">
+                        <option *ngFor="let item of respuestaMaterial" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="detallealbaranForm.controls['idmaterial'].errors?.required">Obligatorio</span>
+                    </div><br>
+
+                    <strong>CANTIDAD</strong><br>
+                    <input formControlName="cantidad">
+                    <div>
+                        <span class="errors" *ngIf="detallealbaranForm.controls['cantidad'].errors?.required"> Obligatorio </span>
+                    </div><br>
+
+                    <strong>PRECIO</strong><br>
+                    <input formControlName="precio">
+                    <div>
+                        <span class="errors" *ngIf="detallealbaranForm.controls['precio'].errors?.required"> Obligatorio </span>
+                    </div><br><br>
+
+                    <a type="button" (click)="postDataDetalleAlbaran()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span> Guardar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL DETALLE-ALBARAN-->

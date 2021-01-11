@@ -1,0 +1,99 @@
+<div class="newReclamo">
+    <a type="button" onclick="document.getElementById('id04').style.display='block'">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/nuevo.png" alt="new-img" height="64" width="64">
+    </a>
+</div>
+<div class="backHome">
+    <a type="button" routerLink="/dashboard">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/home.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+<div class="levelDown">
+    <a type="button" routerLink="/materiales">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <img src="../../assets/back-img.png" alt="home-img" height="64" width="64">
+    </a>
+</div>
+
+<!-- TABLA NICHO -->
+<section>
+    <div class="table-wrapper">
+        <h1>NICHOS</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead *ngFor="let item of table_header">
+                    <th>{{item.id}}</th>
+                    <th>{{item.nombre}}</th>
+                    <th>{{item.ubicacion}}</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of respuestaNicho">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{item.idubicacion}}</td>
+                        <td>
+                            <a type="button" (click)="deleteDataTable(item.id)">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <img src="../../../assets/delete-img.png" alt="delete-img" height="18" width="18">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- TABLA NICHO -->
+
+<!-- MODAL NICHO -->
+<div>
+    <div id="id04" class="w3-modal">
+        <div class="w3-modal-content">
+            <header>
+                <span onclick="document.getElementById('id04').style.display='none'" class="w3-display-topright">&times;</span>
+            </header>
+
+            <div>
+                <h1>Nuevo Nicho</h1>
+                <form [formGroup]="nichoForm" autocomplete="off">
+                    <strong>Nombre del Nicho</strong><br>
+                    <input formControlName="nombre">
+                    <div>
+                        <span class="errors" *ngIf="nichoForm.controls['nombre'].errors?.required"> Obligatorio </span>
+                        <span class="errors" *ngIf="nichoForm.controls['nombre'].errors?.pattern"> Inválido </span>
+                    </div><br><br>
+                    <strong>Ubicación</strong><br>
+                    <select formControlName="idubicacion">
+                        <option *ngFor="let item of respuestaUbicacion" value={{item.id}}>{{item.nombre}}</option>
+                    </select>
+                    <div>
+                        <span class="errors" *ngIf="nichoForm.controls['idubicacion'].errors?.required">Obligatorio</span>
+                    </div><br>
+                    <a type="button" (click)="postDataNicho()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span> Guardar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL NICHO -->

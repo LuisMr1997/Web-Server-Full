@@ -1,0 +1,74 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+#contactos{
+  @include bg_covertint ($r_blanco,$g_blanco,$b_blanco,$r_light_blue,$g_light_blue,$b_light_blue,$alpha_cover,$picture-contactos);
+  height: 100vh;
+  color: $blanco;
+}
+.content {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+    h1{
+        @include headers;
+    }
+  background-size: cover;
+}
+
+.topnav {
+  list-style-type:none;
+  position: fixed;
+  height: 10%;
+  overflow: hidden;
+  display: inline-flex;
+  top: 0%;
+  left: 0%;
+  align-items: center;
+  background:rgba(17, 16, 16, 0.877);
+  width: 100%;
+}
+
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav .icon {
+  display: none;
+}
+.topnav a:hover, .dropdown:hover .dropbtn {
+  background-color:$brand-secondary;
+  color: white;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+@media screen and (max-width: 700px) {
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+    display: none;  
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+.menu{
+  position: absolute;
+  right: 20px;
+
+}
